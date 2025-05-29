@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@v2
+        with:
+          scandir: './init-structure.sh'
+
+  kubeval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install kubeval
+        run: |
+          wget -qO- https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz | tar xz
+          sudo mv kubeval /usr/local/bin/
+      - name: Validate manifests
+        run: |
+          files=$(find k8s -type f -name '*.yaml' || true)
+          if [ -n "$files" ]; then
+            echo "$files" | xargs -r kubeval
+          else
+            echo 'No Kubernetes manifests found.'
+          fi
+
