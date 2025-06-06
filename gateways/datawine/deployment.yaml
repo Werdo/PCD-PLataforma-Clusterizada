@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datawine-gateway
+  labels:
+    app: datawine-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datawine-gateway
+  template:
+    metadata:
+      labels:
+        app: datawine-gateway
+    spec:
+      containers:
+      - name: datawine-gateway
+        image: ppelaez/datawine-gateway:latest
+        ports:
+        - containerPort: 8086
