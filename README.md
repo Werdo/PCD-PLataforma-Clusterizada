@@ -112,3 +112,12 @@ PCD-Platform/
 
 Si das el OK, te genero el archivo completo y su script para copiarlo automáticamente a su ruta desde `/home/ppelaez/scripts`. También puedo comenzar con los manifiestos YAML por zona, empezando por la zona **E (persistence)** como indicaste.
 ```
+
+## 9. Despliegue completo
+
+Ejecuta el script `deploy_full_platform.sh` para organizar la plataforma, generar los módulos, construir y subir las imágenes, y aplicar todos los manifiestos de Kubernetes.
+
+```bash
+./deploy_full_platform.sh
+```
+
